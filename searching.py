@@ -51,9 +51,21 @@ def binary_search(sequence, target_num):
     return None
 
 
+def pattern_search(sequence, pattern):
+    positions = set()
+    m = len(pattern)
+
+    for i in range(len(sequence) - m + 1):
+        if sequence[i:i + m] == pattern:
+            positions.add(i)
+
+    return positions
+
+
 def main():
     file_name = "sequential.json"
 
+    # úkol 1
     sequential_data = read_data(file_name, field="unordered_numbers")
     print(f"Neseřazená data: {sequential_data}")
 
@@ -64,6 +76,7 @@ def main():
     print(f"Pozice: {result['Positions']}")
     print(f"Počet: {result['Count']}")
 
+    # úkol 2
     ordered_data = read_data(file_name, field="ordered_numbers")
     print(f"Sežazená data: {ordered_data}")
 
@@ -73,6 +86,16 @@ def main():
         print(f"Číslo nalezeno na indexu {index}")
     else:
         print("Číslo nenalezeno")
+
+    # úkol 3
+    pattern = "ATA"
+    dna = read_data(file_name, field="dna_sequence")
+    print(f"DNA: {dna}")
+
+    result2 = pattern_search(dna, pattern)
+    print(f"Výskyty vzoru {pattern}: {result2}")
+
+
 
 
 if __name__ == '__main__':
