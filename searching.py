@@ -29,23 +29,51 @@ def linear_search(sequence, target_num):
 
     for i, value in enumerate(sequence):
         if value == target_num:
-            positions.append(i+1)
+            positions.append(i)
             count += 1
 
     return {"Positions": positions, "Count": count}
+
+
+def binary_search(sequence, target_num):
+    left = 0
+    right = len(sequence) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if sequence[mid] == target_num:
+            return mid
+        elif sequence[mid] < target_num:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return None
+
 
 def main():
     file_name = "sequential.json"
 
     sequential_data = read_data(file_name, field="unordered_numbers")
-    print(f"Data: {sequential_data}")
+    print(f"Neseřazená data: {sequential_data}")
 
-    target_num = 5
+    target_num = 2
     result = linear_search(sequential_data, target_num)
 
     print("Výsledky vyhledávání:")
     print(f"Pozice: {result['Positions']}")
     print(f"Počet: {result['Count']}")
+
+    ordered_data = read_data(file_name, field="ordered_numbers")
+    print(f"Sežazená data: {ordered_data}")
+
+    index = binary_search(ordered_data, target_num)
+
+    if index is not None:
+        print(f"Číslo nalezeno na indexu {index}")
+    else:
+        print("Číslo nenalezeno")
+
 
 if __name__ == '__main__':
     main()
